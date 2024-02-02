@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="time">
+        <div class="circle" style="--clr:#00aeff;">
+        <svg>
+            <circle cx="70" cy="70" r="70" id="dd"></circle>
+        </svg>
+        <div id="days">00<br/><span>Days</span></div>
+    </div>
+        <div class="circle" style="--clr:#ff1500;">
+        <svg>
+            <circle cx="70" cy="70" r="70" id="hh"></circle>
+        </svg>
+        <div id="hours">00<br/><span>Hours</span></div>
+    </div>
+        <div class="circle" style="--clr:#fff200;">
+        <svg>
+            <circle cx="70" cy="70" r="70" id="mm"></circle>
+        </svg>
+        <div id="minutes">00<br/><span>Minutes</span></div>
+    </div>
+        <div class="circle" style="--clr:#00ff44;">
+        <svg>
+            <circle cx="70" cy="70" r="70" id="ss"></circle>
+        </svg>
+        <div id="seconds">00<br/><span>Seconds</span></div>
+    </div>
+    </div>
+<script>
+    let days = document.getElementById('days')
+    let hours = document.getElementById('hours')
+    let minutes = document.getElementById('minutes')
+    let seconds = document.getElementById('seconds')
+
+    let dd = document.getElementById('dd')
+    let hh = document.getElementById('hh')
+    let mm = document.getElementById('mm')
+    let ss = document.getElementById('ss')
+                // sequence of date (mm/dd/yyy)
+    let endDate = new Date('01/01/2025 00:00:00').getTime();
+
+    let x = setInterval(function () {
+        let now = new Date().getTime();
+        let distance = endDate - now;
+
+        // time calculation
+        let d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let s = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // update the circles' radius
+        dd.style.strokeDashoffset = 440 - (440 * d ) / 365;
+        // 365 days in a year
+        hh.style.strokeDashoffset = 440 - (440 * h ) / 24;
+        // 24 hours in a day
+        mm.style.strokeDashoffset = 440 - (440 * m ) / 60;
+        // 60 minutes in an hour 
+        ss.style.strokeDashoffset = 440 - (440 * s ) / 60;
+        // 60 seconds in a minute
+
+
+        // output the result in the corresponding elements
+        days.innerHTML = d + "<br/> <span>Days<span/>";
+        hours.innerHTML = h + "<br/> <span>Hours<span/>";
+        minutes.innerHTML = m + "<br/> <span>Minutes<span/>";
+        seconds.innerHTML = s + "<br/> <span>Seconds<span/>";
+    }, 1000);
+</script>
+
+</body>
+</html>
